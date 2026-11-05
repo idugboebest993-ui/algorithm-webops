@@ -1,55 +1,183 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algorithm AI WebOps</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algorithm AI WebOps</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0b1020;
-            color: white;
-            text-align: center;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        header {
-            padding: 25px;
-            color: #55aaff;
-            font-size: 24px;
-            font-weight: bold;
-        }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #080d1b;
+      color: white;
+      text-align: center;
+    }
 
-        main {
-            padding: 70px 20px;
-        }
+    header {
+      padding: 25px;
+      font-size: 25px;
+      font-weight: bold;
+      color: #55c8ff;
+    }
 
-        button {
-            background: #2878ff;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-    </style>
+    .hero {
+      padding: 65px 20px;
+    }
+
+    h1 {
+      font-size: 38px;
+    }
+
+    .hero p {
+      color: #b8c4d8;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    button {
+      background: #168cff;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #006bd6;
+    }
+
+    #business-form {
+      display: none;
+      max-width: 450px;
+      margin: 20px auto;
+      padding: 25px;
+      background: #121d32;
+      border-radius: 12px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 13px;
+      margin: 10px 0;
+      border: 1px solid #34445f;
+      border-radius: 7px;
+      background: #080d1b;
+      color: white;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    #result {
+      margin-top: 20px;
+      color: #55c8ff;
+    }
+
+    footer {
+      padding: 25px;
+      color: #8291a8;
+    }
+  </style>
 </head>
 
 <body>
-    <header>ALGORITHM AI</header>
 
-    <main>
-        <h1>Build Smarter Websites</h1>
+  <header>ALGORITHM AI</header>
 
-        <p>
-            Create, manage and improve your business
-            websites with Artificial Intelligence.
-        </p>
+  <section class="hero">
+    <h1>Build Smarter Websites</h1>
 
-        <button onclick="alert('Welcome to Algorithm AI WebOps!')">
-            Get Started
-        </button>
-    </main>
+    <p>
+      Create, manage and improve your business
+      website with artificial intelligence.
+    </p>
+
+    <button onclick="document.getElementById('business-form').style.display='block'; document.getElementById('business-form').scrollIntoView({behavior:'smooth'});">
+      Get Started
+    </button>
+  </section>
+
+  <section id="business-form">
+
+    <h2>Let's Build Your Website</h2>
+
+    <p>Tell us about your business.</p>
+
+    <form id="websiteForm">
+
+      <input
+        type="text"
+        id="businessName"
+        placeholder="Business name"
+        required
+      >
+
+      <select id="businessType" required>
+        <option value="">Choose business type</option>
+        <option>Clothing</option>
+        <option>Restaurant</option>
+        <option>Technology</option>
+        <option>Education</option>
+        <option>Other</option>
+      </select>
+
+      <textarea
+        id="description"
+        placeholder="Describe the website you want"
+        required
+      ></textarea>
+
+      <button type="submit">Create My Website Plan</button>
+
+    </form>
+
+    <div id="result"></div>
+
+  </section>
+
+  <footer>
+    © 2026 Algorithm AI. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("websiteForm")
+      .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const name = document.getElementById("businessName").value;
+        const type = document.getElementById("businessType").value;
+        const description = document.getElementById("description").value;
+
+        document.getElementById("result").innerHTML =
+          "<h3>Your information has been received!</h3>" +
+          "<p>Business: " + escapeHTML(name) + "</p>" +
+          "<p>Type: " + escapeHTML(type) + "</p>" +
+          "<p>We are preparing your website plan.</p>";
+      });
+
+    function escapeHTML(text) {
+      return text.replace(/[&<>"']/g, function(char) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        }[char];
+      });
+    }
+  </script>
+
 </body>
 </html>
