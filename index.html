@@ -113,50 +113,6 @@ button:hover { background: #173fbd; }
     margin-bottom: 10px;
 }
 
-.preview-site {
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    overflow: hidden;
-    background: white;
-}
-
-.preview-header {
-    padding: 18px;
-    background: #101b35;
-    color: white;
-}
-
-.preview-header h2 { color: white; margin: 0; }
-
-.preview-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 13px;
-    background: #eaf0f8;
-    font-size: 13px;
-}
-
-.preview-hero {
-    padding: 35px 20px;
-    text-align: center;
-    background: #edf3ff;
-}
-
-.preview-hero h2 { font-size: 26px; }
-
-.preview-content {
-    padding: 25px 20px;
-    line-height: 1.7;
-}
-
-.preview-footer {
-    padding: 18px;
-    background: #101b35;
-    color: white;
-    text-align: center;
-}
-
 .notice {
     background: #eef4ff;
     padding: 13px;
@@ -165,10 +121,260 @@ button:hover { background: #173fbd; }
     line-height: 1.6;
 }
 
+.design-description {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: -10px;
+    margin-bottom: 18px;
+}
+
+/* WEBSITE PREVIEW */
+
+.preview-site {
+    --preview-dark: #101b35;
+    --preview-accent: #2457e6;
+    --preview-hero: #edf3ff;
+    --preview-text: #172033;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    color: var(--preview-text);
+}
+
+.preview-header {
+    padding: 22px;
+    background: var(--preview-dark);
+    color: white;
+}
+
+.preview-header h2 {
+    color: white;
+    margin: 0;
+}
+
+.preview-header p { margin-bottom: 0; }
+
+.preview-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 14px;
+    background: #eaf0f8;
+    font-size: 13px;
+}
+
+.preview-nav span {
+    color: var(--preview-dark);
+    font-weight: bold;
+}
+
+.preview-hero {
+    padding: 40px 20px;
+    text-align: center;
+    background: var(--preview-hero);
+}
+
+.preview-hero h2 {
+    color: var(--preview-dark);
+    font-size: 28px;
+    margin: 12px 0;
+}
+
+.preview-hero p { line-height: 1.6; }
+
+.preview-hero .preview-kicker {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--preview-accent);
+}
+
+.preview-content {
+    padding: 25px 20px;
+    line-height: 1.7;
+}
+
+.preview-content h3 {
+    color: var(--preview-dark);
+    margin-top: 22px;
+}
+
+.preview-feature {
+    padding: 10px 13px;
+    margin: 9px 0;
+    border-left: 3px solid var(--preview-accent);
+    background: var(--preview-hero);
+}
+
+.preview-contact {
+    display: inline-block;
+    background: var(--preview-accent);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.preview-footer {
+    padding: 20px;
+    background: var(--preview-dark);
+    color: white;
+    text-align: center;
+}
+
+.preview-footer p { margin: 5px 0; }
+
+/* MODERN STYLE */
+
+.preview-site.style-modern {
+    --preview-dark: #101b35;
+    --preview-accent: #2457e6;
+    --preview-hero: #edf3ff;
+    --preview-text: #172033;
+}
+
+.style-modern .preview-hero {
+    border-bottom: 4px solid #2457e6;
+}
+
+/* ELEGANT STYLE */
+
+.preview-site.style-elegant {
+    --preview-dark: #30251f;
+    --preview-accent: #a77b43;
+    --preview-hero: #f6efe5;
+    --preview-text: #40342d;
+    border-color: #d8c8b5;
+    border-radius: 3px;
+}
+
+.style-elegant .preview-header,
+.style-elegant .preview-footer {
+    background: #30251f;
+}
+
+.style-elegant .preview-header {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.style-elegant .preview-header h2,
+.style-elegant .preview-hero h2,
+.style-elegant .preview-content h3 {
+    font-family: Georgia, serif;
+}
+
+.style-elegant .preview-nav {
+    justify-content: center;
+    background: #eee4d7;
+}
+
+.style-elegant .preview-hero {
+    padding: 55px 25px;
+}
+
+.style-elegant .preview-hero h2 {
+    font-size: 32px;
+}
+
+.style-elegant .preview-feature {
+    border-left: 2px solid #a77b43;
+    background: #f6efe5;
+}
+
+.style-elegant .preview-contact {
+    border-radius: 2px;
+}
+
+/* BOLD STYLE */
+
+.preview-site.style-bold {
+    --preview-dark: #151515;
+    --preview-accent: #ef5b35;
+    --preview-hero: #252525;
+    --preview-text: #242424;
+    border: 2px solid #151515;
+    border-radius: 4px;
+}
+
+.style-bold .preview-header {
+    border-bottom: 5px solid #ef5b35;
+}
+
+.style-bold .preview-header h2 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.style-bold .preview-nav {
+    background: #ef5b35;
+}
+
+.style-bold .preview-nav span {
+    color: white;
+}
+
+.style-bold .preview-hero {
+    color: white;
+    padding: 50px 20px;
+}
+
+.style-bold .preview-hero h2 {
+    color: white;
+    font-size: 32px;
+    text-transform: uppercase;
+}
+
+.style-bold .preview-hero .preview-kicker {
+    color: #ff987b;
+}
+
+.style-bold .preview-content h3 {
+    text-transform: uppercase;
+    border-bottom: 2px solid #ef5b35;
+    padding-bottom: 8px;
+}
+
+.style-bold .preview-feature {
+    border-left: 5px solid #ef5b35;
+    background: #f2f2f2;
+}
+
+.style-bold .preview-contact {
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
 footer {
     text-align: center;
     padding: 25px;
     color: #64748b;
+}
+
+@media (max-width: 600px) {
+    main {
+        margin: 12px auto;
+        padding: 10px;
+    }
+
+    .screen {
+        padding: 18px;
+    }
+
+    .preview-hero {
+        padding: 30px 15px;
+    }
+
+    .preview-hero h2 {
+        font-size: 23px;
+    }
+
+    .preview-nav {
+        gap: 10px;
+    }
 }
 </style>
 </head>
@@ -280,6 +486,23 @@ footer {
         Location information
     </label>
 
+    <h3>Choose Your Design Style</h3>
+
+    <p>How should your website look?</p>
+
+    <label for="designStyle">Website Design</label>
+    <select id="designStyle">
+        <option value="modern">Modern</option>
+        <option value="elegant">Elegant</option>
+        <option value="bold">Bold</option>
+    </select>
+
+    <div class="notice">
+        <strong>Modern:</strong> Clean, simple and professional.<br>
+        <strong>Elegant:</strong> Refined, warm and premium.<br>
+        <strong>Bold:</strong> Strong, striking and energetic.
+    </div>
+
     <button class="back-button" onclick="goToStage(2)">Back</button>
     <button onclick="generateStructure()">Generate Structure</button>
 </section>
@@ -298,6 +521,7 @@ footer {
     <ul id="featuresList" class="features-list"></ul>
 
     <p><strong>Website goal:</strong> <span id="goalResult"></span></p>
+    <p><strong>Design style:</strong> <span id="styleResult"></span></p>
 
     <button class="back-button" onclick="goToStage(3)">Back</button>
     <button onclick="generatePreview()">Build Website Preview</button>
@@ -313,7 +537,7 @@ footer {
         business website could look.
     </p>
 
-    <div class="preview-site" id="websitePreview"></div>
+    <div class="preview-site style-modern" id="websitePreview"></div>
 
     <div class="notice" style="margin-top:18px">
         This is a prototype preview. It is not yet a
@@ -346,7 +570,8 @@ let business = {
     description: "",
     goal: "",
     features: [],
-    pages: []
+    pages: [],
+    style: "modern"
 };
 
 function goToStage(number) {
@@ -398,6 +623,7 @@ function escapeHTML(text) {
 
 function generateStructure() {
     business.goal = document.getElementById("websiteGoal").value;
+    business.style = document.getElementById("designStyle").value;
 
     business.features = Array.from(
         document.querySelectorAll('input[name="feature"]:checked')
@@ -445,6 +671,15 @@ function generateStructure() {
 
     document.getElementById("goalResult").textContent = business.goal;
 
+    const styleNames = {
+        modern: "Modern",
+        elegant: "Elegant",
+        bold: "Bold"
+    };
+
+    document.getElementById("styleResult").textContent =
+        styleNames[business.style] || "Modern";
+
     goToStage(4);
 }
 
@@ -452,6 +687,8 @@ function generatePreview() {
     const name = escapeHTML(business.name);
     const type = escapeHTML(business.type);
     const description = escapeHTML(business.description);
+
+    const safeUpperName = escapeHTML(business.name.toUpperCase());
 
     const pageLinks = business.pages.map(page =>
         "<span>" + escapeHTML(page) + "</span>"
@@ -462,7 +699,9 @@ function generatePreview() {
         : ["Mobile-friendly design", "Clear business information"];
 
     const featureCards = features.map(feature =>
-        "<p>✓ " + escapeHTML(feature) + "</p>"
+        '<div class="preview-feature">' +
+        escapeHTML(feature) +
+        '</div>'
     ).join("");
 
     const preview = `
@@ -476,7 +715,7 @@ function generatePreview() {
         </div>
 
         <div class="preview-hero">
-            <p>WELCOME TO ${name.toUpperCase()}</p>
+            <p class="preview-kicker">WELCOME TO ${safeUpperName}</p>
             <h2>Welcome to Our Business</h2>
             <p>${description}</p>
             <p><strong>${escapeHTML(business.goal)}</strong></p>
@@ -491,6 +730,7 @@ function generatePreview() {
 
             <h3>Get In Touch</h3>
             <p>Contact our business to learn more about our services.</p>
+            <div class="preview-contact">Contact Us</div>
         </div>
 
         <div class="preview-footer">
@@ -499,7 +739,12 @@ function generatePreview() {
         </div>
     `;
 
-    document.getElementById("websitePreview").innerHTML = preview;
+    const previewElement = document.getElementById("websitePreview");
+
+    previewElement.className =
+        "preview-site style-" + business.style;
+
+    previewElement.innerHTML = preview;
 
     goToStage(5);
 }
@@ -509,6 +754,7 @@ function startAgain() {
     document.getElementById("businessType").value = "";
     document.getElementById("description").value = "";
     document.getElementById("websiteGoal").selectedIndex = 0;
+    document.getElementById("designStyle").value = "modern";
 
     document.querySelectorAll('input[name="feature"]')
         .forEach(input => input.checked = false);
@@ -519,7 +765,8 @@ function startAgain() {
         description: "",
         goal: "",
         features: [],
-        pages: []
+        pages: [],
+        style: "modern"
     };
 
     goToStage(1);
