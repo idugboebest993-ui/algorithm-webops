@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,6 +69,14 @@ button:hover {
     background: #173fbd;
 }
 
+.secondary-button {
+    background: #101b35;
+}
+
+.secondary-button:hover {
+    background: #293c63;
+}
+
 input, select, textarea {
     width: 100%;
     padding: 13px;
@@ -91,6 +100,12 @@ label {
 
 li {
     margin-bottom: 9px;
+}
+
+#copy-status {
+    font-weight: bold;
+    color: #167a43;
+    margin-top: 12px;
 }
 
 footer {
@@ -188,6 +203,8 @@ footer {
 </footer>
 
 <script>
+
+let currentPlanText = "";
 
 function showForm() {
 
@@ -375,6 +392,29 @@ document.getElementById("website-form")
 
     }
 
+    // Create a text version of the website plan.
+
+    currentPlanText =
+        "ALGORITHM AI - WEBSITE PLAN\n\n" +
+        "Business Name: " + name + "\n" +
+        "Business Type: " + type + "\n" +
+        "Description: " + description + "\n\n" +
+
+        "RECOMMENDED DESIGN\n" +
+        design + "\n\n" +
+
+        "RECOMMENDED WEBSITE PAGES\n" +
+        pages.map((page, index) =>
+            (index + 1) + ". " + page
+        ).join("\n") + "\n\n" +
+
+        "RECOMMENDED FEATURES\n" +
+        features.map((feature, index) =>
+            (index + 1) + ". " + feature
+        ).join("\n") + "\n\n" +
+
+        "Created with Algorithm AI WebOps.";
+
     const result = document.getElementById("result");
 
     result.innerHTML = `
@@ -395,7 +435,7 @@ document.getElementById("website-form")
 
         <h3>Recommended Design</h3>
 
-        <p>${design}</p>
+        <p>${escapeHTML(design)}</p>
 
         <h3>Recommended Website Pages</h3>
 
@@ -419,7 +459,20 @@ document.getElementById("website-form")
             as Algorithm AI develops.
         </p>
 
-        <button onclick="createAnotherPlan()">
+        <button
+            type="button"
+            class="secondary-button"
+            onclick="copyPlan()"
+        >
+            Copy Website Plan
+        </button>
+
+        <p id="copy-status" aria-live="polite"></p>
+
+        <button
+            type="button"
+            onclick="createAnotherPlan()"
+        >
             Create Another Plan
         </button>
 
@@ -431,12 +484,64 @@ document.getElementById("website-form")
 
 });
 
+// Copy the complete plan.
+
+async function copyPlan() {
+
+    const status = document.getElementById("copy-status");
+
+    try {
+
+        if (navigator.clipboard &&
+            window.isSecureContext) {
+
+            await navigator.clipboard.writeText(
+                currentPlanText
+            );
+
+        } else {
+
+            const temporary = document.createElement("textarea");
+
+            temporary.value = currentPlanText;
+
+            temporary.style.position = "fixed";
+            temporary.style.opacity = "0";
+
+            document.body.appendChild(temporary);
+
+            temporary.select();
+
+            const copied = document.execCommand("copy");
+
+            document.body.removeChild(temporary);
+
+            if (!copied) {
+                throw new Error("Copy failed");
+            }
+
+        }
+
+        status.textContent =
+            "Success! Your website plan has been copied.";
+
+    } catch (error) {
+
+        status.textContent =
+            "Copy failed. Please try again.";
+
+    }
+
+}
+
 function createAnotherPlan() {
 
     document.getElementById("website-form").reset();
 
     document.getElementById("result")
         .classList.add("hidden");
+
+    currentPlanText = "";
 
     document.getElementById("form-section")
         .scrollIntoView({behavior: "smooth"});
