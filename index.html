@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm AI - WebOps</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        header {
+            background: #101b35;
+            color: white;
+            padding: 22px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            color: #cbd5e1;
+        }
+
+        main {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .hero, .form-box, .result-box {
+            background: white;
+            padding: 28px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        h2 {
+            color: #172b55;
+        }
+
+        button {
+            background: #2457e6;
+            color: white;
+            border: none;
+            padding: 14px 22px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        button:hover {
+            background: #173fbd;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 13px;
+            margin: 9px 0 18px;
+            border: 1px solid #ccd3df;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .result-box {
+            border-left: 5px solid #2457e6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+        }
+
+        li {
+            margin-bottom: 9px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Algorithm AI</h1>
+    <p>Build Smarter Websites</p>
+</header>
+
+<main>
+
+    <section class="hero">
+        <h2>Welcome to Algorithm AI</h2>
+
+        <p>
+            Create, plan and improve your business website
+            with intelligent technology.
+        </p>
+
+        <button onclick="showForm()">
+            Get Started
+        </button>
+    </section>
+
+    <section class="form-box hidden" id="form-section">
+
+        <h2>Tell Us About Your Business</h2>
+
+        <form id="website-form">
+
+            <label for="businessName">Business Name</label>
+
+            <input
+                type="text"
+                id="businessName"
+                placeholder="Enter your business name"
+                required
+            >
+
+            <label for="businessType">Business Type</label>
+
+            <select id="businessType" required>
+                <option value="">Choose business type</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Restaurant">Restaurant</option>
+                <option value="Technology">Technology</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="description">
+                Describe Your Business
+            </label>
+
+            <textarea
+                id="description"
+                rows="4"
+                placeholder="What does your business do?"
+                required
+            ></textarea>
+
+            <button type="submit">
+                Generate Website Plan
+            </button>
+
+        </form>
+    </section>
+
+    <section
+        class="result-box hidden"
+        id="result"
+        aria-live="polite"
+    ></section>
+
+</main>
+
+<footer>
+    <p>Algorithm AI &copy; 2026</p>
+    <p>Building smarter digital experiences.</p>
+</footer>
+
+<script>
+
+    function showForm() {
+        document.getElementById("form-section")
+            .classList.remove("hidden");
+
+        document.getElementById("form-section")
+            .scrollIntoView({ behavior: "smooth" });
+    }
+
+    function escapeHTML(text) {
+        return String(text).replace(/[&<>"']/g, function(char) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[char];
+        });
+    }
+
+    document.getElementById("website-form")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const name = document.getElementById(
+                "businessName"
+            ).value.trim();
+
+            const type = document.getElementById(
+                "businessType"
+            ).value;
+
+            const description = document.getElementById(
+                "description"
+            ).value.trim();
+
+            let pages = ["Home", "About", "Contact"];
+
+            let features = [
+                "Mobile-friendly design",
+                "Contact form",
+                "Clear business information"
+            ];
+
+            let design = "Clean and professional";
+
+            if (type === "Restaurant") {
+                pages.push("Menu", "Reservations");
+
+                features.push(
+                    "Food gallery",
+                    "Opening hours"
+                );
+
+                design = "Warm and welcoming";
+            }
+
+            if (type === "Clothing") {
+                pages.push("Shop", "Collections");
+
+                features.push(
+                    "Product gallery",
+                    "Shopping information"
+                );
+
+                design = "Modern and stylish";
+            }
+
+            if (type === "Education") {
+                pages.push("Courses", "Admissions");
+
+                features.push(
+                    "Course information",
+                    "Student enquiries"
+                );
+
+                design = "Clear and educational";
+            }
+
+            if (type === "Technology") {
+                pages.push("Services", "Projects");
+
+                features.push(
+                    "Service descriptions",
+                    "Project showcase"
+                );
+
+                design = "Modern and technology-focused";
+            }
+
+            if (type === "Other") {
+                pages.push("Products or Services");
+
+                features.push(
+                    "Business information",
+                    "Customer enquiries"
+                );
+            }
+
+            const result = document.getElementById("result");
+
+            result.innerHTML = `
+                <h2>Website Plan Generated!</h2>
+
+                <h3>${escapeHTML(name)}</h3>
+
+                <p>
+                    <strong>Business Type:</strong>
+                    ${escapeHTML(type)}
+                </p>
+
+                <p>
+                    <strong>Description:</strong>
+                    ${escapeHTML(description)}
+                </p>
+
+                <h3>Recommended Design</h3>
+
+                <p>${design}</p>
+
+                <h3>Recommended Website Pages</h3>
+
+                <ul>
+                    ${pages.map(page =>
+                        `<li>${escapeHTML(page)}</li>`
+                    ).join("")}
+                </ul>
+
+                <h3>Recommended Features</h3>
+
+                <ul>
+                    ${features.map(feature =>
+                        `<li>${escapeHTML(feature)}</li>`
+                    ).join("")}
+                </ul>
+
+                <p>
+                    This is your starting website plan.
+                    More advanced AI features will be added
+                    as Algorithm AI develops.
+                </p>
+
+                <button onclick="createAnotherPlan()">
+                    Create Another Plan
+                </button>
+            `;
+
+            result.classList.remove("hidden");
+
+            result.scrollIntoView({ behavior: "smooth" });
+
+        });
+
+    function createAnotherPlan() {
+
+        document.getElementById("website-form").reset();
+
+        document.getElementById("result")
+            .classList.add("hidden");
+
+        document.getElementById("form-section")
+            .scrollIntoView({ behavior: "smooth" });
+
+    }
+
+</script>
+
+</body>
+</html>
