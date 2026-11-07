@@ -860,4 +860,28 @@ function generatePreview() {
         </div>
 
         <div class="preview-hero">
-            <p class="preview-kicker">
+            <p class="preview-kicker">                    Welcome to ${name}
+                </p>
+                <h1>Discover what makes ${name} special.</h1>
+                <p>Your trusted ${type} business. Explore our services and learn more about us.</p>
+                <a href="#contact" class="preview-button">Get Started</a>
+            </div>
+
+            <div class="preview-content">
+                <h2>About Us</h2>
+                <p>Welcome to ${name}. We are here to serve you.</p>
+            </div>
+
+            <div class="preview-content" id="contact">
+                <h2>Contact Us</h2>
+                <p>Get in touch with ${name} today.</p>
+            </div>
+        </div>
+    `;
+
+    const previewElement = document.getElementById("websitePreview");
+    previewElement.className = "preview-site style-" + business.style;
+    previewElement.innerHTML = preview;
+
+    goToStage(5);
+}
