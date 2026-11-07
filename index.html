@@ -43,7 +43,8 @@ main {
 
 h2, h3 { color: #172b55; }
 
-input, select, textarea {
+input:not([type="checkbox"]):not([type="radio"]),
+select, textarea {
     width: 100%;
     padding: 13px;
     margin: 9px 0 18px;
@@ -121,12 +122,97 @@ button:hover { background: #173fbd; }
     line-height: 1.6;
 }
 
+/* DESIGN STYLE CHOICES */
+
+.design-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.design-option {
+    display: block;
+    position: relative;
+    padding: 15px 10px;
+    border: 2px solid #dbe2ed;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    background: white;
+    transition: border-color .2s, background .2s;
+}
+
+.design-option:hover {
+    border-color: #2457e6;
+}
+
+.design-option.selected {
+    border-color: #2457e6;
+    background: #eef4ff;
+}
+
+.design-option input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.design-option input:focus-visible + .design-content {
+    outline: 3px solid #2457e6;
+    outline-offset: 4px;
+}
+
+.design-name {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
 .design-description {
+    display: block;
     color: #64748b;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.5;
-    margin-top: -10px;
-    margin-bottom: 18px;
+    font-weight: normal;
+}
+
+.design-swatch {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 12px 0;
+}
+
+.design-swatch span {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+}
+
+.selected-text {
+    display: block;
+    font-size: 12px;
+    color: #2457e6;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+@media (max-width: 520px) {
+    .design-options {
+        grid-template-columns: 1fr;
+    }
+
+    .design-option {
+        text-align: left;
+        padding: 14px;
+    }
+
+    .design-swatch {
+        justify-content: flex-start;
+    }
 }
 
 /* WEBSITE PREVIEW */
@@ -227,7 +313,7 @@ button:hover { background: #173fbd; }
 
 .preview-footer p { margin: 5px 0; }
 
-/* MODERN STYLE */
+/* MODERN */
 
 .preview-site.style-modern {
     --preview-dark: #101b35;
@@ -240,7 +326,7 @@ button:hover { background: #173fbd; }
     border-bottom: 4px solid #2457e6;
 }
 
-/* ELEGANT STYLE */
+/* ELEGANT */
 
 .preview-site.style-elegant {
     --preview-dark: #30251f;
@@ -249,11 +335,6 @@ button:hover { background: #173fbd; }
     --preview-text: #40342d;
     border-color: #d8c8b5;
     border-radius: 3px;
-}
-
-.style-elegant .preview-header,
-.style-elegant .preview-footer {
-    background: #30251f;
 }
 
 .style-elegant .preview-header {
@@ -282,14 +363,13 @@ button:hover { background: #173fbd; }
 
 .style-elegant .preview-feature {
     border-left: 2px solid #a77b43;
-    background: #f6efe5;
 }
 
 .style-elegant .preview-contact {
     border-radius: 2px;
 }
 
-/* BOLD STYLE */
+/* BOLD */
 
 .preview-site.style-bold {
     --preview-dark: #151515;
@@ -354,28 +434,6 @@ footer {
     color: #64748b;
 }
 
-@media (max-width: 600px) {
-    main {
-        margin: 12px auto;
-        padding: 10px;
-    }
-
-    .screen {
-        padding: 18px;
-    }
-
-    .preview-hero {
-        padding: 30px 15px;
-    }
-
-    .preview-hero h2 {
-        font-size: 23px;
-    }
-
-    .preview-nav {
-        gap: 10px;
-    }
-}
 </style>
 </head>
 
@@ -487,20 +545,80 @@ footer {
     </label>
 
     <h3>Choose Your Design Style</h3>
+    <p>Tap one of the three options below.</p>
 
-    <p>How should your website look?</p>
+    <div class="design-options">
 
-    <label for="designStyle">Website Design</label>
-    <select id="designStyle">
-        <option value="modern">Modern</option>
-        <option value="elegant">Elegant</option>
-        <option value="bold">Bold</option>
-    </select>
+        <label class="design-option selected" id="modernCard">
+            <input type="radio" name="designStyle"
+                value="modern" checked
+                onchange="selectDesign(this)">
+
+            <span class="design-content">
+                <span class="design-name">Modern</span>
+
+                <span class="design-swatch">
+                    <span style="background:#101b35"></span>
+                    <span style="background:#2457e6"></span>
+                    <span style="background:#edf3ff"></span>
+                </span>
+
+                <span class="design-description">
+                    Clean, simple and professional.
+                </span>
+
+                <span class="selected-text">Selected</span>
+            </span>
+        </label>
+
+        <label class="design-option" id="elegantCard">
+            <input type="radio" name="designStyle"
+                value="elegant"
+                onchange="selectDesign(this)">
+
+            <span class="design-content">
+                <span class="design-name">Elegant</span>
+
+                <span class="design-swatch">
+                    <span style="background:#30251f"></span>
+                    <span style="background:#a77b43"></span>
+                    <span style="background:#f6efe5"></span>
+                </span>
+
+                <span class="design-description">
+                    Refined, warm and premium.
+                </span>
+
+                <span class="selected-text">Tap to select</span>
+            </span>
+        </label>
+
+        <label class="design-option" id="boldCard">
+            <input type="radio" name="designStyle"
+                value="bold"
+                onchange="selectDesign(this)">
+
+            <span class="design-content">
+                <span class="design-name">Bold</span>
+
+                <span class="design-swatch">
+                    <span style="background:#151515"></span>
+                    <span style="background:#ef5b35"></span>
+                    <span style="background:#f2f2f2"></span>
+                </span>
+
+                <span class="design-description">
+                    Strong, striking and energetic.
+                </span>
+
+                <span class="selected-text">Tap to select</span>
+            </span>
+        </label>
+
+    </div>
 
     <div class="notice">
-        <strong>Modern:</strong> Clean, simple and professional.<br>
-        <strong>Elegant:</strong> Refined, warm and premium.<br>
-        <strong>Bold:</strong> Strong, striking and energetic.
+        Your selected design will be used when your website preview is generated.
     </div>
 
     <button class="back-button" onclick="goToStage(2)">Back</button>
@@ -621,9 +739,37 @@ function escapeHTML(text) {
     });
 }
 
+/* SELECT A DESIGN */
+
+function selectDesign(input) {
+    business.style = input.value;
+
+    const cards = document.querySelectorAll(".design-option");
+
+    cards.forEach(card => {
+        const radio = card.querySelector('input[type="radio"]');
+        const selectedText = card.querySelector(".selected-text");
+
+        if (radio.checked) {
+            card.classList.add("selected");
+            selectedText.textContent = "Selected";
+        } else {
+            card.classList.remove("selected");
+            selectedText.textContent = "Tap to select";
+        }
+    });
+}
+
 function generateStructure() {
     business.goal = document.getElementById("websiteGoal").value;
-    business.style = document.getElementById("designStyle").value;
+
+    const selectedStyle = document.querySelector(
+        'input[name="designStyle"]:checked'
+    );
+
+    business.style = selectedStyle
+        ? selectedStyle.value
+        : "modern";
 
     business.features = Array.from(
         document.querySelectorAll('input[name="feature"]:checked')
@@ -678,7 +824,7 @@ function generateStructure() {
     };
 
     document.getElementById("styleResult").textContent =
-        styleNames[business.style] || "Modern";
+        styleNames[business.style];
 
     goToStage(4);
 }
@@ -687,7 +833,6 @@ function generatePreview() {
     const name = escapeHTML(business.name);
     const type = escapeHTML(business.type);
     const description = escapeHTML(business.description);
-
     const safeUpperName = escapeHTML(business.name.toUpperCase());
 
     const pageLinks = business.pages.map(page =>
@@ -715,64 +860,4 @@ function generatePreview() {
         </div>
 
         <div class="preview-hero">
-            <p class="preview-kicker">WELCOME TO ${safeUpperName}</p>
-            <h2>Welcome to Our Business</h2>
-            <p>${description}</p>
-            <p><strong>${escapeHTML(business.goal)}</strong></p>
-        </div>
-
-        <div class="preview-content">
-            <h3>About Our Business</h3>
-            <p>${description}</p>
-
-            <h3>What We Offer</h3>
-            ${featureCards}
-
-            <h3>Get In Touch</h3>
-            <p>Contact our business to learn more about our services.</p>
-            <div class="preview-contact">Contact Us</div>
-        </div>
-
-        <div class="preview-footer">
-            <p>${name}</p>
-            <p>Created with Algorithm AI WebOps</p>
-        </div>
-    `;
-
-    const previewElement = document.getElementById("websitePreview");
-
-    previewElement.className =
-        "preview-site style-" + business.style;
-
-    previewElement.innerHTML = preview;
-
-    goToStage(5);
-}
-
-function startAgain() {
-    document.getElementById("businessName").value = "";
-    document.getElementById("businessType").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("websiteGoal").selectedIndex = 0;
-    document.getElementById("designStyle").value = "modern";
-
-    document.querySelectorAll('input[name="feature"]')
-        .forEach(input => input.checked = false);
-
-    business = {
-        name: "",
-        type: "",
-        description: "",
-        goal: "",
-        features: [],
-        pages: [],
-        style: "modern"
-    };
-
-    goToStage(1);
-}
-
-</script>
-
-</body>
-</html>
+            <p class="preview-kicker">
