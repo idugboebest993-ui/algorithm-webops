@@ -1,103 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algorithm AI - WebOps</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<title>Algorithm AI - WebOps</title>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #172033;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        header {
-            background: #101b35;
-            color: white;
-            padding: 22px;
-            text-align: center;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #172033;
+}
 
-        header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
+header {
+    background: #101b35;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
 
-        header p {
-            color: #cbd5e1;
-        }
+header h1 {
+    font-size: 30px;
+    margin: 0;
+}
 
-        main {
-            max-width: 750px;
-            margin: 40px auto;
-            padding: 20px;
-        }
+header p {
+    color: #cbd5e1;
+}
 
-        .hero, .form-box, .result-box {
-            background: white;
-            padding: 28px;
-            border-radius: 14px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-        }
+main {
+    max-width: 750px;
+    margin: 35px auto;
+    padding: 20px;
+}
 
-        h2 {
-            color: #172b55;
-        }
+.hero, .form-box, .result-box {
+    background: white;
+    padding: 28px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
 
-        button {
-            background: #2457e6;
-            color: white;
-            border: none;
-            padding: 14px 22px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 12px;
-        }
+h2, h3 {
+    color: #172b55;
+}
 
-        button:hover {
-            background: #173fbd;
-        }
+button {
+    background: #2457e6;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 12px;
+}
 
-        input, select, textarea {
-            width: 100%;
-            padding: 13px;
-            margin: 9px 0 18px;
-            border: 1px solid #ccd3df;
-            border-radius: 7px;
-            font-size: 15px;
-        }
+button:hover {
+    background: #173fbd;
+}
 
-        label {
-            font-weight: bold;
-        }
+input, select, textarea {
+    width: 100%;
+    padding: 13px;
+    margin: 9px 0 18px;
+    border: 1px solid #ccd3df;
+    border-radius: 7px;
+    font-size: 15px;
+}
 
-        .hidden {
-            display: none;
-        }
+label {
+    font-weight: bold;
+}
 
-        .result-box {
-            border-left: 5px solid #2457e6;
-        }
+.hidden {
+    display: none;
+}
 
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #64748b;
-        }
+.result-box {
+    border-left: 5px solid #2457e6;
+}
 
-        li {
-            margin-bottom: 9px;
-        }
-    </style>
+li {
+    margin-bottom: 9px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #64748b;
+}
+</style>
 </head>
 
 <body>
@@ -109,68 +110,75 @@
 
 <main>
 
-    <section class="hero">
-        <h2>Welcome to Algorithm AI</h2>
+<section class="hero">
+    <h2>Welcome to Algorithm AI</h2>
 
-        <p>
-            Create, plan and improve your business website
-            with intelligent technology.
-        </p>
+    <p>
+        Create, plan and improve your business website
+        with intelligent technology.
+    </p>
 
-        <button onclick="showForm()">
-            Get Started
+    <button onclick="showForm()">
+        Get Started
+    </button>
+</section>
+
+<section class="form-box hidden" id="form-section">
+
+    <h2>Tell Us About Your Business</h2>
+
+    <form id="website-form">
+
+        <label for="businessName">Business Name</label>
+
+        <input
+            type="text"
+            id="businessName"
+            placeholder="Enter your business name"
+            required
+        >
+
+        <label for="businessType">Business Type</label>
+
+        <select id="businessType" required>
+
+            <option value="">Choose business type</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Restaurant">Restaurant</option>
+            <option value="Technology">Technology</option>
+            <option value="Education">Education</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Real Estate">Real Estate</option>
+            <option value="Beauty and Fashion">Beauty and Fashion</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Agriculture">Agriculture</option>
+            <option value="Other">Other</option>
+
+        </select>
+
+        <label for="description">
+            Describe Your Business
+        </label>
+
+        <textarea
+            id="description"
+            rows="4"
+            placeholder="What does your business do?"
+            required
+        ></textarea>
+
+        <button type="submit">
+            Generate Website Plan
         </button>
-    </section>
 
-    <section class="form-box hidden" id="form-section">
+    </form>
+</section>
 
-        <h2>Tell Us About Your Business</h2>
-
-        <form id="website-form">
-
-            <label for="businessName">Business Name</label>
-
-            <input
-                type="text"
-                id="businessName"
-                placeholder="Enter your business name"
-                required
-            >
-
-            <label for="businessType">Business Type</label>
-
-            <select id="businessType" required>
-                <option value="">Choose business type</option>
-                <option value="Clothing">Clothing</option>
-                <option value="Restaurant">Restaurant</option>
-                <option value="Technology">Technology</option>
-                <option value="Education">Education</option>
-                <option value="Other">Other</option>
-            </select>
-
-            <label for="description">
-                Describe Your Business
-            </label>
-
-            <textarea
-                id="description"
-                rows="4"
-                placeholder="What does your business do?"
-                required
-            ></textarea>
-
-            <button type="submit">
-                Generate Website Plan
-            </button>
-
-        </form>
-    </section>
-
-    <section
-        class="result-box hidden"
-        id="result"
-        aria-live="polite"
-    ></section>
+<section
+    class="result-box hidden"
+    id="result"
+    aria-live="polite"
+></section>
 
 </main>
 
@@ -181,171 +189,259 @@
 
 <script>
 
-    function showForm() {
-        document.getElementById("form-section")
-            .classList.remove("hidden");
+function showForm() {
 
-        document.getElementById("form-section")
-            .scrollIntoView({ behavior: "smooth" });
-    }
+    document.getElementById("form-section")
+        .classList.remove("hidden");
 
-    function escapeHTML(text) {
-        return String(text).replace(/[&<>"']/g, function(char) {
-            return {
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#39;"
-            }[char];
-        });
-    }
+    document.getElementById("form-section")
+        .scrollIntoView({behavior: "smooth"});
 
-    document.getElementById("website-form")
-        .addEventListener("submit", function(event) {
+}
 
-            event.preventDefault();
+function escapeHTML(text) {
 
-            const name = document.getElementById(
-                "businessName"
-            ).value.trim();
+    return String(text).replace(/[&<>"']/g, function(char) {
 
-            const type = document.getElementById(
-                "businessType"
-            ).value;
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        }[char];
 
-            const description = document.getElementById(
-                "description"
-            ).value.trim();
+    });
 
-            let pages = ["Home", "About", "Contact"];
+}
 
-            let features = [
-                "Mobile-friendly design",
-                "Contact form",
-                "Clear business information"
-            ];
+document.getElementById("website-form")
+.addEventListener("submit", function(event) {
 
-            let design = "Clean and professional";
+    event.preventDefault();
 
-            if (type === "Restaurant") {
-                pages.push("Menu", "Reservations");
+    const name = document.getElementById(
+        "businessName"
+    ).value.trim();
 
-                features.push(
-                    "Food gallery",
-                    "Opening hours"
-                );
+    const type = document.getElementById(
+        "businessType"
+    ).value;
 
-                design = "Warm and welcoming";
-            }
+    const description = document.getElementById(
+        "description"
+    ).value.trim();
 
-            if (type === "Clothing") {
-                pages.push("Shop", "Collections");
+    let pages = ["Home", "About", "Contact"];
 
-                features.push(
-                    "Product gallery",
-                    "Shopping information"
-                );
+    let features = [
+        "Mobile-friendly design",
+        "Contact form",
+        "Clear business information"
+    ];
 
-                design = "Modern and stylish";
-            }
+    let design = "Clean and professional";
 
-            if (type === "Education") {
-                pages.push("Courses", "Admissions");
+    if (type === "Restaurant") {
 
-                features.push(
-                    "Course information",
-                    "Student enquiries"
-                );
+        pages.push("Menu", "Reservations");
 
-                design = "Clear and educational";
-            }
+        features.push(
+            "Food gallery",
+            "Opening hours"
+        );
 
-            if (type === "Technology") {
-                pages.push("Services", "Projects");
-
-                features.push(
-                    "Service descriptions",
-                    "Project showcase"
-                );
-
-                design = "Modern and technology-focused";
-            }
-
-            if (type === "Other") {
-                pages.push("Products or Services");
-
-                features.push(
-                    "Business information",
-                    "Customer enquiries"
-                );
-            }
-
-            const result = document.getElementById("result");
-
-            result.innerHTML = `
-                <h2>Website Plan Generated!</h2>
-
-                <h3>${escapeHTML(name)}</h3>
-
-                <p>
-                    <strong>Business Type:</strong>
-                    ${escapeHTML(type)}
-                </p>
-
-                <p>
-                    <strong>Description:</strong>
-                    ${escapeHTML(description)}
-                </p>
-
-                <h3>Recommended Design</h3>
-
-                <p>${design}</p>
-
-                <h3>Recommended Website Pages</h3>
-
-                <ul>
-                    ${pages.map(page =>
-                        `<li>${escapeHTML(page)}</li>`
-                    ).join("")}
-                </ul>
-
-                <h3>Recommended Features</h3>
-
-                <ul>
-                    ${features.map(feature =>
-                        `<li>${escapeHTML(feature)}</li>`
-                    ).join("")}
-                </ul>
-
-                <p>
-                    This is your starting website plan.
-                    More advanced AI features will be added
-                    as Algorithm AI develops.
-                </p>
-
-                <button onclick="createAnotherPlan()">
-                    Create Another Plan
-                </button>
-            `;
-
-            result.classList.remove("hidden");
-
-            result.scrollIntoView({ behavior: "smooth" });
-
-        });
-
-    function createAnotherPlan() {
-
-        document.getElementById("website-form").reset();
-
-        document.getElementById("result")
-            .classList.add("hidden");
-
-        document.getElementById("form-section")
-            .scrollIntoView({ behavior: "smooth" });
+        design = "Warm and welcoming";
 
     }
+
+    if (type === "Clothing") {
+
+        pages.push("Shop", "Collections");
+
+        features.push(
+            "Product gallery",
+            "Shopping information"
+        );
+
+        design = "Modern and stylish";
+
+    }
+
+    if (type === "Education") {
+
+        pages.push("Courses", "Admissions");
+
+        features.push(
+            "Course information",
+            "Student enquiries"
+        );
+
+        design = "Clear and educational";
+
+    }
+
+    if (type === "Technology") {
+
+        pages.push("Services", "Projects");
+
+        features.push(
+            "Service descriptions",
+            "Project showcase"
+        );
+
+        design = "Modern and technology-focused";
+
+    }
+
+    if (type === "Healthcare") {
+
+        pages.push("Medical Services", "Our Team");
+
+        features.push(
+            "Service information",
+            "Appointment enquiry form",
+            "Clinic contact details"
+        );
+
+        design = "Clean, calm and trustworthy";
+
+    }
+
+    if (type === "Real Estate") {
+
+        pages.push("Properties", "Property Details");
+
+        features.push(
+            "Property gallery",
+            "Property enquiry form",
+            "Location information"
+        );
+
+        design = "Elegant and professional";
+
+    }
+
+    if (type === "Beauty and Fashion") {
+
+        pages.push("Services", "Gallery");
+
+        features.push(
+            "Style gallery",
+            "Service information",
+            "Booking enquiries"
+        );
+
+        design = "Creative and stylish";
+
+    }
+
+    if (type === "Transportation") {
+
+        pages.push("Transport Services", "Booking");
+
+        features.push(
+            "Transport information",
+            "Booking enquiries",
+            "Contact details"
+        );
+
+        design = "Simple and organised";
+
+    }
+
+    if (type === "Agriculture") {
+
+        pages.push("Our Products", "Farm Services");
+
+        features.push(
+            "Product information",
+            "Farm gallery",
+            "Customer enquiries"
+        );
+
+        design = "Natural and informative";
+
+    }
+
+    if (type === "Other") {
+
+        pages.push("Products or Services");
+
+        features.push(
+            "Business information",
+            "Customer enquiries"
+        );
+
+    }
+
+    const result = document.getElementById("result");
+
+    result.innerHTML = `
+
+        <h2>Website Plan Generated!</h2>
+
+        <h3>${escapeHTML(name)}</h3>
+
+        <p>
+            <strong>Business Type:</strong>
+            ${escapeHTML(type)}
+        </p>
+
+        <p>
+            <strong>Description:</strong>
+            ${escapeHTML(description)}
+        </p>
+
+        <h3>Recommended Design</h3>
+
+        <p>${design}</p>
+
+        <h3>Recommended Website Pages</h3>
+
+        <ul>
+            ${pages.map(page =>
+                `<li>${escapeHTML(page)}</li>`
+            ).join("")}
+        </ul>
+
+        <h3>Recommended Features</h3>
+
+        <ul>
+            ${features.map(feature =>
+                `<li>${escapeHTML(feature)}</li>`
+            ).join("")}
+        </ul>
+
+        <p>
+            This is your starting website plan.
+            More advanced AI features will be added
+            as Algorithm AI develops.
+        </p>
+
+        <button onclick="createAnotherPlan()">
+            Create Another Plan
+        </button>
+
+    `;
+
+    result.classList.remove("hidden");
+
+    result.scrollIntoView({behavior: "smooth"});
+
+});
+
+function createAnotherPlan() {
+
+    document.getElementById("website-form").reset();
+
+    document.getElementById("result")
+        .classList.add("hidden");
+
+    document.getElementById("form-section")
+        .scrollIntoView({behavior: "smooth"});
+
+}
 
 </script>
 
