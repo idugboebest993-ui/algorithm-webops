@@ -5,883 +5,342 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Algorithm AI - WebOps</title>
-
 <style>
-* { box-sizing: border-box; }
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f7fb;
-    color: #172033;
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fb;color:#172033}
+header{background:#101b35;color:white;padding:20px;text-align:center}
+header h1{margin:0;font-size:25px}
+header p{color:#b9c8e4;margin:7px 0 0}
+main{max-width:850px;margin:25px auto;padding:15px}
+.card{background:white;padding:25px;border-radius:15px;margin-bottom:18px;box-shadow:0 5px 20px #15294b12}
+.stage{display:none}
+.stage.active{display:block}
+h2{margin-top:0;color:#172b50}
+p{line-height:1.6}
+input,select,textarea{width:100%;padding:13px;margin:8px 0 17px;border:1px solid #ccd5e3;border-radius:8px;font-size:15px}
+textarea{min-height:90px}
+label{font-weight:bold;display:block;margin-top:12px}
+button{border:0;border-radius:8px;padding:13px 20px;background:#2459d3;color:white;font-size:15px;font-weight:bold;cursor:pointer;margin:5px}
+button.secondary{background:#e8edf7;color:#20304d}
+button:disabled{opacity:.5}
+.actions{display:flex;justify-content:space-between;flex-wrap:wrap;margin-top:20px}
+.progress{height:7px;background:#e5eaf2;border-radius:10px;margin-bottom:20px;overflow:hidden}
+.progress div{height:100%;width:20%;background:#2860df;transition:.2s}
+.option{display:block;padding:13px;border:1px solid #d6deeb;border-radius:9px;margin:9px 0;font-weight:normal}
+.option input{width:auto;margin:0 8px 0 0}
+.styles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.style-card{border:2px solid #dce3ef;border-radius:10px;padding:13px;text-align:center;cursor:pointer;background:white}
+.style-card.selected{border-color:#2860df;background:#edf3ff}
+.swatches{display:flex;justify-content:center;gap:5px;margin:10px}
+.swatches span{width:22px;height:22px;border-radius:50%}
+.style-card p{font-size:12px;color:#65718a;margin:5px 0}
+#websitePreview{border:1px solid #dce3ef;border-radius:12px;overflow:hidden;background:white}
+.preview-site{min-height:350px}
+.preview-nav{padding:17px 20px;font-weight:bold;border-bottom:1px solid #ddd}
+.preview-hero{padding:45px 20px;text-align:center;background:#edf3ff}
+.preview-hero h1{font-size:29px;margin:12px 0}
+.preview-button{display:inline-block;background:#2459d3;color:white;padding:12px 20px;border-radius:7px;margin-top:12px}
+.preview-content{padding:20px;border-top:1px solid #eee}
+.style-elegant{font-family:Georgia,serif;color:#44352d}
+.style-elegant .preview-hero{background:#f1e8dc}
+.style-elegant .preview-button{background:#80634d}
+.style-elegant .preview-nav{background:#e8dccb}
+.style-bold{background:#171717;color:white}
+.style-bold .preview-nav{background:#111;color:white}
+.style-bold .preview-hero{background:#242424;color:white}
+.style-bold .preview-button{background:#ff8b24;color:#111}
+.style-bold .preview-content{border-color:#444}
+.result{background:#f4f7fc;padding:15px;border-radius:9px;margin:12px 0}
+small{color:#69758a}
+@media(max-width:520px){
+main{padding:10px;margin:12px auto}
+.card{padding:18px}
+.styles{grid-template-columns:1fr}
+.preview-hero h1{font-size:23px}
 }
-
-header {
-    background: #101b35;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-header h1 { margin: 0; font-size: 27px; }
-header p { color: #cbd5e1; margin-bottom: 0; }
-
-main {
-    max-width: 850px;
-    margin: 25px auto;
-    padding: 15px;
-}
-
-.screen {
-    background: white;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.06);
-}
-
-.hidden { display: none !important; }
-
-h2, h3 { color: #172b55; }
-
-input:not([type="checkbox"]):not([type="radio"]),
-select, textarea {
-    width: 100%;
-    padding: 13px;
-    margin: 9px 0 18px;
-    border: 1px solid #ccd3df;
-    border-radius: 7px;
-    font-size: 16px;
-}
-
-label {
-    font-weight: bold;
-    display: block;
-}
-
-button {
-    background: #2457e6;
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 12px;
-}
-
-button:hover { background: #173fbd; }
-
-.back-button { background: #64748b; }
-.back-button:hover { background: #475569; }
-
-.progress {
-    height: 7px;
-    background: #e2e8f0;
-    border-radius: 10px;
-    margin: 20px 0;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 20%;
-    background: #2457e6;
-    transition: width .3s;
-}
-
-.step-label {
-    color: #64748b;
-    font-size: 14px;
-}
-
-.option {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px;
-    border: 1px solid #dbe2ed;
-    border-radius: 8px;
-    margin: 10px 0;
-}
-
-.option input {
-    width: auto;
-    margin: 0;
-}
-
-.pages-list li, .features-list li {
-    margin-bottom: 10px;
-}
-
-.notice {
-    background: #eef4ff;
-    padding: 13px;
-    border-radius: 8px;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-/* DESIGN STYLE CHOICES */
-
-.design-options {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin: 15px 0;
-}
-
-.design-option {
-    display: block;
-    position: relative;
-    padding: 15px 10px;
-    border: 2px solid #dbe2ed;
-    border-radius: 10px;
-    cursor: pointer;
-    text-align: center;
-    background: white;
-    transition: border-color .2s, background .2s;
-}
-
-.design-option:hover {
-    border-color: #2457e6;
-}
-
-.design-option.selected {
-    border-color: #2457e6;
-    background: #eef4ff;
-}
-
-.design-option input {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-}
-
-.design-option input:focus-visible + .design-content {
-    outline: 3px solid #2457e6;
-    outline-offset: 4px;
-}
-
-.design-name {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.design-description {
-    display: block;
-    color: #64748b;
-    font-size: 12px;
-    line-height: 1.5;
-    font-weight: normal;
-}
-
-.design-swatch {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    margin: 12px 0;
-}
-
-.design-swatch span {
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-}
-
-.selected-text {
-    display: block;
-    font-size: 12px;
-    color: #2457e6;
-    font-weight: bold;
-    margin-top: 8px;
-}
-
-@media (max-width: 520px) {
-    .design-options {
-        grid-template-columns: 1fr;
-    }
-
-    .design-option {
-        text-align: left;
-        padding: 14px;
-    }
-
-    .design-swatch {
-        justify-content: flex-start;
-    }
-}
-
-/* WEBSITE PREVIEW */
-
-.preview-site {
-    --preview-dark: #101b35;
-    --preview-accent: #2457e6;
-    --preview-hero: #edf3ff;
-    --preview-text: #172033;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    overflow: hidden;
-    background: white;
-    color: var(--preview-text);
-}
-
-.preview-header {
-    padding: 22px;
-    background: var(--preview-dark);
-    color: white;
-}
-
-.preview-header h2 {
-    color: white;
-    margin: 0;
-}
-
-.preview-header p { margin-bottom: 0; }
-
-.preview-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 14px;
-    background: #eaf0f8;
-    font-size: 13px;
-}
-
-.preview-nav span {
-    color: var(--preview-dark);
-    font-weight: bold;
-}
-
-.preview-hero {
-    padding: 40px 20px;
-    text-align: center;
-    background: var(--preview-hero);
-}
-
-.preview-hero h2 {
-    color: var(--preview-dark);
-    font-size: 28px;
-    margin: 12px 0;
-}
-
-.preview-hero p { line-height: 1.6; }
-
-.preview-hero .preview-kicker {
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: var(--preview-accent);
-}
-
-.preview-content {
-    padding: 25px 20px;
-    line-height: 1.7;
-}
-
-.preview-content h3 {
-    color: var(--preview-dark);
-    margin-top: 22px;
-}
-
-.preview-feature {
-    padding: 10px 13px;
-    margin: 9px 0;
-    border-left: 3px solid var(--preview-accent);
-    background: var(--preview-hero);
-}
-
-.preview-contact {
-    display: inline-block;
-    background: var(--preview-accent);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 6px;
-    margin-top: 8px;
-    font-weight: bold;
-}
-
-.preview-footer {
-    padding: 20px;
-    background: var(--preview-dark);
-    color: white;
-    text-align: center;
-}
-
-.preview-footer p { margin: 5px 0; }
-
-/* MODERN */
-
-.preview-site.style-modern {
-    --preview-dark: #101b35;
-    --preview-accent: #2457e6;
-    --preview-hero: #edf3ff;
-    --preview-text: #172033;
-}
-
-.style-modern .preview-hero {
-    border-bottom: 4px solid #2457e6;
-}
-
-/* ELEGANT */
-
-.preview-site.style-elegant {
-    --preview-dark: #30251f;
-    --preview-accent: #a77b43;
-    --preview-hero: #f6efe5;
-    --preview-text: #40342d;
-    border-color: #d8c8b5;
-    border-radius: 3px;
-}
-
-.style-elegant .preview-header {
-    text-align: center;
-    padding: 30px 20px;
-}
-
-.style-elegant .preview-header h2,
-.style-elegant .preview-hero h2,
-.style-elegant .preview-content h3 {
-    font-family: Georgia, serif;
-}
-
-.style-elegant .preview-nav {
-    justify-content: center;
-    background: #eee4d7;
-}
-
-.style-elegant .preview-hero {
-    padding: 55px 25px;
-}
-
-.style-elegant .preview-hero h2 {
-    font-size: 32px;
-}
-
-.style-elegant .preview-feature {
-    border-left: 2px solid #a77b43;
-}
-
-.style-elegant .preview-contact {
-    border-radius: 2px;
-}
-
-/* BOLD */
-
-.preview-site.style-bold {
-    --preview-dark: #151515;
-    --preview-accent: #ef5b35;
-    --preview-hero: #252525;
-    --preview-text: #242424;
-    border: 2px solid #151515;
-    border-radius: 4px;
-}
-
-.style-bold .preview-header {
-    border-bottom: 5px solid #ef5b35;
-}
-
-.style-bold .preview-header h2 {
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.style-bold .preview-nav {
-    background: #ef5b35;
-}
-
-.style-bold .preview-nav span {
-    color: white;
-}
-
-.style-bold .preview-hero {
-    color: white;
-    padding: 50px 20px;
-}
-
-.style-bold .preview-hero h2 {
-    color: white;
-    font-size: 32px;
-    text-transform: uppercase;
-}
-
-.style-bold .preview-hero .preview-kicker {
-    color: #ff987b;
-}
-
-.style-bold .preview-content h3 {
-    text-transform: uppercase;
-    border-bottom: 2px solid #ef5b35;
-    padding-bottom: 8px;
-}
-
-.style-bold .preview-feature {
-    border-left: 5px solid #ef5b35;
-    background: #f2f2f2;
-}
-
-.style-bold .preview-contact {
-    border-radius: 2px;
-    text-transform: uppercase;
-}
-
-footer {
-    text-align: center;
-    padding: 25px;
-    color: #64748b;
-}
-
 </style>
 </head>
-
 <body>
 
 <header>
-    <h1>Algorithm AI</h1>
-    <p>Build Smarter Websites</p>
+<h1>Algorithm AI</h1>
+<p>WebOps — Build Smarter Websites</p>
 </header>
 
 <main>
+<div class="progress"><div id="progressBar"></div></div>
 
-<!-- STAGE 1 -->
-<section class="screen" id="stage1">
-    <p class="step-label">WELCOME TO WEBOPS</p>
-    <h2>Let's Build Your Website</h2>
-
-    <p>
-        Tell us about your business and let Algorithm AI
-        help you create a website that fits your needs.
-    </p>
-
-    <div class="notice">
-        Your website project will move through five
-        simple stages, from business information
-        to a visual website preview.
-    </div>
-
-    <button onclick="goToStage(2)">Get Started</button>
+<section class="stage active card" id="stage1">
+<h2>Welcome to Algorithm WebOps</h2>
+<p>Create a website plan for your business through a simple guided process.</p>
+<p>We'll help you organise your business information, choose features and select a design style.</p>
+<div class="actions">
+<span></span>
+<button onclick="goToStage(2)">Get Started →</button>
+</div>
 </section>
 
-<!-- STAGE 2 -->
-<section class="screen hidden" id="stage2">
-    <p class="step-label">STAGE 2 OF 5</p>
-    <h2>Tell Us About Your Business</h2>
+<section class="stage card" id="stage2">
+<h2>Stage 2: Business Details</h2>
+<label>Business name</label>
+<input id="businessName" placeholder="Enter your business name">
 
-    <label for="businessName">Business Name</label>
-    <input id="businessName" placeholder="Enter business name">
+<label>Business category</label>
+<select id="businessType">
+<option value="">Choose a category</option>
+<option>Clothing</option>
+<option>Restaurant</option>
+<option>Technology</option>
+<option>Education</option>
+<option>Healthcare</option>
+<option>Real Estate</option>
+<option>Beauty and Fashion</option>
+<option>Transportation</option>
+<option>Agriculture</option>
+<option>Other</option>
+</select>
 
-    <label for="businessType">Business Type</label>
-    <select id="businessType">
-        <option value="">Choose business type</option>
-        <option>Clothing</option>
-        <option>Restaurant</option>
-        <option>Technology</option>
-        <option>Education</option>
-        <option>Healthcare</option>
-        <option>Real Estate</option>
-        <option>Beauty and Fashion</option>
-        <option>Transportation</option>
-        <option>Agriculture</option>
-        <option>Other</option>
-    </select>
+<label>Describe your business</label>
+<textarea id="businessDescription" placeholder="What does your business do?"></textarea>
 
-    <label for="description">Describe Your Business</label>
-    <textarea id="description" rows="4"
-        placeholder="What does your business do?"></textarea>
-
-    <button class="back-button" onclick="goToStage(1)">Back</button>
-    <button onclick="saveBusiness()">Next</button>
+<div class="actions">
+<button class="secondary" onclick="goToStage(1)">← Back</button>
+<button onclick="goToStage(3)">Next →</button>
+</div>
 </section>
 
-<!-- STAGE 3 -->
-<section class="screen hidden" id="stage3">
-    <p class="step-label">STAGE 3 OF 5</p>
-    <h2>What Should Your Website Do?</h2>
+<section class="stage card" id="stage3">
+<h2>Stage 3: Website Requirements</h2>
+<label>What is the main goal of your website?</label>
+<select id="websiteGoal">
+<option value="Promote the business">Promote my business</option>
+<option value="Sell products online">Sell products online</option>
+<option value="Provide information">Provide information</option>
+<option value="Receive bookings">Receive bookings</option>
+<option value="Connect with customers">Connect with customers</option>
+</select>
 
-    <p>Choose the main purpose of your website.</p>
-
-    <label for="websiteGoal">Website Goal</label>
-    <select id="websiteGoal">
-        <option value="Showcase my business">Showcase my business</option>
-        <option value="Sell products online">Sell products online</option>
-        <option value="Receive customer enquiries">Receive customer enquiries</option>
-        <option value="Accept bookings">Accept bookings</option>
-        <option value="Share information">Share information</option>
-    </select>
-
-    <h3>Choose Website Features</h3>
-
-    <label class="option">
-        <input type="checkbox" name="feature" value="Image gallery">
-        Image gallery
-    </label>
-
-    <label class="option">
-        <input type="checkbox" name="feature" value="Contact form">
-        Contact form
-    </label>
-
-    <label class="option">
-        <input type="checkbox" name="feature" value="Product showcase">
-        Product showcase
-    </label>
-
-    <label class="option">
-        <input type="checkbox" name="feature" value="Booking information">
-        Booking information
-    </label>
-
-    <label class="option">
-        <input type="checkbox" name="feature" value="Customer reviews">
-        Customer reviews
-    </label>
-
-    <label class="option">
-        <input type="checkbox" name="feature" value="Location information">
-        Location information
-    </label>
-
-    <h3>Choose Your Design Style</h3>
-    <p>Tap one of the three options below.</p>
-
-    <div class="design-options">
-
-        <label class="design-option selected" id="modernCard">
-            <input type="radio" name="designStyle"
-                value="modern" checked
-                onchange="selectDesign(this)">
-
-            <span class="design-content">
-                <span class="design-name">Modern</span>
-
-                <span class="design-swatch">
-                    <span style="background:#101b35"></span>
-                    <span style="background:#2457e6"></span>
-                    <span style="background:#edf3ff"></span>
-                </span>
-
-                <span class="design-description">
-                    Clean, simple and professional.
-                </span>
-
-                <span class="selected-text">Selected</span>
-            </span>
-        </label>
-
-        <label class="design-option" id="elegantCard">
-            <input type="radio" name="designStyle"
-                value="elegant"
-                onchange="selectDesign(this)">
-
-            <span class="design-content">
-                <span class="design-name">Elegant</span>
-
-                <span class="design-swatch">
-                    <span style="background:#30251f"></span>
-                    <span style="background:#a77b43"></span>
-                    <span style="background:#f6efe5"></span>
-                </span>
-
-                <span class="design-description">
-                    Refined, warm and premium.
-                </span>
-
-                <span class="selected-text">Tap to select</span>
-            </span>
-        </label>
-
-        <label class="design-option" id="boldCard">
-            <input type="radio" name="designStyle"
-                value="bold"
-                onchange="selectDesign(this)">
-
-            <span class="design-content">
-                <span class="design-name">Bold</span>
-
-                <span class="design-swatch">
-                    <span style="background:#151515"></span>
-                    <span style="background:#ef5b35"></span>
-                    <span style="background:#f2f2f2"></span>
-                </span>
-
-                <span class="design-description">
-                    Strong, striking and energetic.
-                </span>
-
-                <span class="selected-text">Tap to select</span>
-            </span>
-        </label>
-
-    </div>
-
-    <div class="notice">
-        Your selected design will be used when your website preview is generated.
-    </div>
-
-    <button class="back-button" onclick="goToStage(2)">Back</button>
-    <button onclick="generateStructure()">Generate Structure</button>
-</section>
-
-<!-- STAGE 4 -->
-<section class="screen hidden" id="stage4">
-    <p class="step-label">STAGE 4 OF 5</p>
-    <h2>Your Website Structure</h2>
-
-    <p>Here is the proposed structure for your business website.</p>
-
-    <h3>Recommended Pages</h3>
-    <ul id="pagesList" class="pages-list"></ul>
-
-    <h3>Recommended Features</h3>
-    <ul id="featuresList" class="features-list"></ul>
-
-    <p><strong>Website goal:</strong> <span id="goalResult"></span></p>
-    <p><strong>Design style:</strong> <span id="styleResult"></span></p>
-
-    <button class="back-button" onclick="goToStage(3)">Back</button>
-    <button onclick="generatePreview()">Build Website Preview</button>
-</section>
-
-<!-- STAGE 5 -->
-<section class="screen hidden" id="stage5">
-    <p class="step-label">STAGE 5 OF 5</p>
-    <h2>Your Website Preview</h2>
-
-    <p>
-        This is an initial visual example of how your
-        business website could look.
-    </p>
-
-    <div class="preview-site style-modern" id="websitePreview"></div>
-
-    <div class="notice" style="margin-top:18px">
-        This is a prototype preview. It is not yet a
-        published website, and its forms and links are
-        demonstration elements.
-    </div>
-
-    <button class="back-button" onclick="goToStage(4)">Back to Structure</button>
-    <button onclick="startAgain()">Start Another Project</button>
-</section>
-
-<div class="progress">
-    <div class="progress-bar" id="progressBar"></div>
+<label>Choose the features you need</label>
+<div id="featureOptions">
+<label class="option"><input type="checkbox" value="Contact form"> Contact form</label>
+<label class="option"><input type="checkbox" value="Online payments"> Online payments</label>
+<label class="option"><input type="checkbox" value="Product gallery"> Product gallery</label>
+<label class="option"><input type="checkbox" value="Customer reviews"> Customer reviews</label>
+<label class="option"><input type="checkbox" value="Booking system"> Booking system</label>
+<label class="option"><input type="checkbox" value="Live chat"> Live chat</label>
+<label class="option"><input type="checkbox" value="Social media links"> Social media links</label>
+<label class="option"><input type="checkbox" value="Search feature"> Search feature</label>
 </div>
 
-<p class="step-label" id="stageLabel">Stage 1 of 5</p>
+<h3>Choose Your Design Style</h3>
+<p>Select a style. Your website preview will use your choice.</p>
 
+<div class="styles">
+<div class="style-card selected" data-style="modern" onclick="selectDesign('modern')">
+<strong>Modern</strong>
+<div class="swatches">
+<span style="background:#2459d3"></span>
+<span style="background:#edf3ff"></span>
+<span style="background:#172033"></span>
+</div>
+<p>Clean and professional</p>
+<p class="selected-label">Selected</p>
+</div>
+
+<div class="style-card" data-style="elegant" onclick="selectDesign('elegant')">
+<strong>Elegant</strong>
+<div class="swatches">
+<span style="background:#80634d"></span>
+<span style="background:#f1e8dc"></span>
+<span style="background:#44352d"></span>
+</div>
+<p>Warm and sophisticated</p>
+<p class="selected-label">Select style</p>
+</div>
+
+<div class="style-card" data-style="bold" onclick="selectDesign('bold')">
+<strong>Bold</strong>
+<div class="swatches">
+<span style="background:#171717"></span>
+<span style="background:#ff8b24"></span>
+<span style="background:#ffffff"></span>
+</div>
+<p>Strong and striking</p>
+<p class="selected-label">Select style</p>
+</div>
+</div>
+
+<div class="actions">
+<button class="secondary" onclick="goToStage(2)">← Back</button>
+<button onclick="generateStructure()">Next →</button>
+</div>
+</section>
+
+<section class="stage card" id="stage4">
+<h2>Stage 4: Website Structure</h2>
+<p>Here is the suggested structure for your website.</p>
+<div class="result" id="structureResult"></div>
+<div class="actions">
+<button class="secondary" onclick="goToStage(3)">← Back</button>
+<button onclick="generatePreview()">Generate Preview →</button>
+</div>
+</section>
+
+<section class="stage card" id="stage5">
+<h2>Stage 5: Website Preview</h2>
+<p>This is an initial visual preview based on your business details and selected design.</p>
+<div id="websitePreview"></div>
+<div class="actions">
+<button class="secondary" onclick="goToStage(4)">← Back</button>
+<button onclick="startAgain()">Start Another Project</button>
+</div>
+</section>
 </main>
 
-<footer>
-    <p>Algorithm AI &copy; 2026</p>
-    <p>Building smarter digital experiences.</p>
-</footer>
-
 <script>
-
-let business = {
-    name: "",
-    type: "",
-    description: "",
-    goal: "",
-    features: [],
-    pages: [],
-    style: "modern"
+const business = {
+name:"",
+type:"",
+description:"",
+goal:"",
+features:[],
+style:"modern"
 };
 
-function goToStage(number) {
-    for (let i = 1; i <= 5; i++) {
-        document.getElementById("stage" + i)
-            .classList.add("hidden");
-    }
-
-    document.getElementById("stage" + number)
-        .classList.remove("hidden");
-
-    document.getElementById("progressBar").style.width =
-        (number * 20) + "%";
-
-    document.getElementById("stageLabel").textContent =
-        "Stage " + number + " of 5";
-
-    window.scrollTo({top: 0, behavior: "smooth"});
+function goToStage(number){
+if(number===3){
+if(!document.getElementById("businessName").value.trim() ||
+!document.getElementById("businessType").value){
+alert("Please enter your business name and choose a category.");
+return;
+}
+}
+document.querySelectorAll(".stage").forEach(s=>s.classList.remove("active"));
+document.getElementById("stage"+number).classList.add("active");
+document.getElementById("progressBar").style.width=(number*20)+"%";
+window.scrollTo(0,0);
 }
 
-function saveBusiness() {
-    const name = document.getElementById("businessName").value.trim();
-    const type = document.getElementById("businessType").value;
-    const description = document.getElementById("description").value.trim();
-
-    if (!name || !type || !description) {
-        alert("Please complete all business information.");
-        return;
-    }
-
-    business.name = name;
-    business.type = type;
-    business.description = description;
-
-    goToStage(3);
+function selectDesign(style){
+business.style=style;
+document.querySelectorAll(".style-card").forEach(card=>{
+const selected=card.dataset.style===style;
+card.classList.toggle("selected",selected);
+card.querySelector(".selected-label").textContent=selected?"Selected":"Select style";
+});
 }
 
-function escapeHTML(text) {
-    return String(text).replace(/[&<>"']/g, function(char) {
-        return {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-        }[char];
-    });
+function escapeHTML(value){
+return String(value).replace(/[&<>"']/g,function(char){
+return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char];
+});
 }
 
-/* SELECT A DESIGN */
+function generateStructure(){
+business.name=document.getElementById("businessName").value.trim();
+business.type=document.getElementById("businessType").value;
+business.description=document.getElementById("businessDescription").value.trim();
+business.goal=document.getElementById("websiteGoal").value;
+business.features=Array.from(document.querySelectorAll("#featureOptions input:checked")).map(input=>input.value);
 
-function selectDesign(input) {
-    business.style = input.value;
+let pages=["Home","About Us","Contact Us"];
 
-    const cards = document.querySelectorAll(".design-option");
-
-    cards.forEach(card => {
-        const radio = card.querySelector('input[type="radio"]');
-        const selectedText = card.querySelector(".selected-text");
-
-        if (radio.checked) {
-            card.classList.add("selected");
-            selectedText.textContent = "Selected";
-        } else {
-            card.classList.remove("selected");
-            selectedText.textContent = "Tap to select";
-        }
-    });
+if(["Clothing","Beauty and Fashion"].includes(business.type)){
+pages.push("Products","Gallery");
+}
+if(business.type==="Restaurant"){
+pages.push("Menu","Reservations");
+}
+if(business.type==="Education"){
+pages.push("Courses","Admissions");
+}
+if(business.type==="Technology"){
+pages.push("Services","Solutions");
+}
+if(business.type==="Healthcare"){
+pages.push("Services","Appointments");
+}
+if(business.type==="Real Estate"){
+pages.push("Properties","Property Details");
+}
+if(business.type==="Transportation"){
+pages.push("Our Services","Booking");
+}
+if(business.type==="Agriculture"){
+pages.push("Our Products","Farm Information");
+}
+if(business.type==="Other"){
+pages.push("Our Services","Gallery");
 }
 
-function generateStructure() {
-    business.goal = document.getElementById("websiteGoal").value;
+let features=business.features.length
+?business.features.map(f=>"<li>"+escapeHTML(f)+"</li>").join("")
+:"<li>Basic website information</li>";
 
-    const selectedStyle = document.querySelector(
-        'input[name="designStyle"]:checked'
-    );
+document.getElementById("structureResult").innerHTML=
+"<h3>Business: "+escapeHTML(business.name)+"</h3>"+
+"<p><strong>Category:</strong> "+escapeHTML(business.type)+"</p>"+
+"<p><strong>Main goal:</strong> "+escapeHTML(business.goal)+"</p>"+
+"<h3>Suggested pages</h3><ul>"+pages.map(p=>"<li>"+escapeHTML(p)+"</li>").join("")+"</ul>"+
+"<h3>Selected features</h3><ul>"+features+"</ul>"+
+"<p><strong>Design:</strong> "+escapeHTML(business.style)+"</p>";
 
-    business.style = selectedStyle
-        ? selectedStyle.value
-        : "modern";
-
-    business.features = Array.from(
-        document.querySelectorAll('input[name="feature"]:checked')
-    ).map(input => input.value);
-
-    let pages = ["Home", "About Us", "Contact"];
-
-    const type = business.type;
-
-    if (type === "Restaurant") {
-        pages.push("Menu", "Reservations");
-    } else if (type === "Clothing") {
-        pages.push("Shop", "Collections");
-    } else if (type === "Education") {
-        pages.push("Courses", "Admissions");
-    } else if (type === "Technology") {
-        pages.push("Services", "Projects");
-    } else if (type === "Healthcare") {
-        pages.push("Medical Services", "Our Team");
-    } else if (type === "Real Estate") {
-        pages.push("Properties", "Property Details");
-    } else if (type === "Beauty and Fashion") {
-        pages.push("Services", "Gallery");
-    } else if (type === "Transportation") {
-        pages.push("Transport Services", "Booking");
-    } else if (type === "Agriculture") {
-        pages.push("Our Products", "Farm Services");
-    } else {
-        pages.push("Products or Services");
-    }
-
-    business.pages = pages;
-
-    document.getElementById("pagesList").innerHTML =
-        pages.map(page => "<li>" + escapeHTML(page) + "</li>").join("");
-
-    const features = business.features.length
-        ? business.features
-        : ["Mobile-friendly design", "Clear business information"];
-
-    document.getElementById("featuresList").innerHTML =
-        features.map(feature =>
-            "<li>" + escapeHTML(feature) + "</li>"
-        ).join("");
-
-    document.getElementById("goalResult").textContent = business.goal;
-
-    const styleNames = {
-        modern: "Modern",
-        elegant: "Elegant",
-        bold: "Bold"
-    };
-
-    document.getElementById("styleResult").textContent =
-        styleNames[business.style];
-
-    goToStage(4);
+goToStage(4);
 }
 
-function generatePreview() {
-    const name = escapeHTML(business.name);
-    const type = escapeHTML(business.type);
-    const description = escapeHTML(business.description);
-    const safeUpperName = escapeHTML(business.name.toUpperCase());
+function generatePreview(){
+const name=escapeHTML(business.name);
+const type=escapeHTML(business.type);
+const description=escapeHTML(business.description||"We are here to serve you.");
+const pages=["Home","About Us","Services","Contact Us"];
 
-    const pageLinks = business.pages.map(page =>
-        "<span>" + escapeHTML(page) + "</span>"
-    ).join("");
+const preview=`
+<div class="preview-site">
+<div class="preview-nav">${name}</div>
+<div class="preview-hero">
+<p>WELCOME TO ${name}</p>
+<h1>Discover what makes ${name} special.</h1>
+<p>${description}</p>
+<p>Your trusted ${type} business.</p>
+<a class="preview-button" href="#contact">Get Started</a>
+</div>
+<div class="preview-content">
+<h2>About Us</h2>
+<p>${description}</p>
+</div>
+<div class="preview-content">
+<h2>Our Website</h2>
+<p>${pages.join(" · ")}</p>
+</div>
+<div class="preview-content" id="contact">
+<h2>Contact Us</h2>
+<p>Get in touch with ${name} today.</p>
+</div>
+</div>`;
 
-    const features = business.features.length
-        ? business.features
-        : ["Mobile-friendly design", "Clear business information"];
-
-    const featureCards = features.map(feature =>
-        '<div class="preview-feature">' +
-        escapeHTML(feature) +
-        '</div>'
-    ).join("");
-
-    const preview = `
-        <div class="preview-header">
-            <h2>${name}</h2>
-            <p>${type}</p>
-        </div>
-
-        <div class="preview-nav">
-            ${pageLinks}
-        </div>
-
-        <div class="preview-hero">
-            <p class="preview-kicker">                    Welcome to ${name}
-                </p>
-                <h1>Discover what makes ${name} special.</h1>
-                <p>Your trusted ${type} business. Explore our services and learn more about us.</p>
-                <a href="#contact" class="preview-button">Get Started</a>
-            </div>
-
-            <div class="preview-content">
-                <h2>About Us</h2>
-                <p>Welcome to ${name}. We are here to serve you.</p>
-            </div>
-
-            <div class="preview-content" id="contact">
-                <h2>Contact Us</h2>
-                <p>Get in touch with ${name} today.</p>
-            </div>
-        </div>
-    `;
-
-    const previewElement = document.getElementById("websitePreview");
-    previewElement.className = "preview-site style-" + business.style;
-    previewElement.innerHTML = preview;
-
-    goToStage(5);
+const previewElement=document.getElementById("websitePreview");
+previewElement.className="style-"+business.style;
+previewElement.innerHTML=preview;
+goToStage(5);
 }
+
+function startAgain(){
+document.getElementById("businessName").value="";
+document.getElementById("businessType").value="";
+document.getElementById("businessDescription").value="";
+document.getElementById("websiteGoal").selectedIndex=0;
+document.querySelectorAll("#featureOptions input").forEach(input=>input.checked=false);
+business.name="";
+business.type="";
+business.description="";
+business.features=[];
+business.goal="";
+selectDesign("modern");
+document.getElementById("structureResult").innerHTML="";
+document.getElementById("websitePreview").innerHTML="";
+goToStage(1);
+}
+</script>
+
+</body>
+</html>
